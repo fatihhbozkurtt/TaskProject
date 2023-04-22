@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CollectibleUnit : MonoBehaviour
@@ -7,8 +8,8 @@ public class CollectibleUnit : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] int unitLevel;
 
-    [Header("References")]
-    [SerializeField] Material[] materials;
+    //[Header("References")]
+
 
     [Header("Debug")]
     [SerializeField] bool isCollected;
@@ -26,7 +27,9 @@ public class CollectibleUnit : MonoBehaviour
     {
         collisionController.CollidedWithGateEvent += OnCollidedWithGate;
         collisionController.CollidedWithEnemyEvent += OnCollidedWithEnemy;
+        collisionController.CollidedWithSpikeEvent += OnCollidedSpike;
     }
+
 
     #region Collision Event Subscribers
 
@@ -64,22 +67,27 @@ public class CollectibleUnit : MonoBehaviour
 
         }
     }
+    private void OnCollidedSpike()
+    {
+        DestroySelf();
+    }
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
-        {
-            if (collectibleUnit.IsAlreadyCollected()) return;
+        //if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
+        //{
+        //    if (collectibleUnit.IsAlreadyCollected()) return;
 
-            UnitCollector.instance.TriggerUnitCollectedEvent(collectibleUnit);
-            collectibleUnit.GetCollected();
-        }
+        //    UnitCollector.instance.TriggerUnitCollectedEvent(collectibleUnit);
+        //    collectibleUnit.GetCollected();
+        //}
     }
 
     void DestroySelf()
     {
         StackManager.instance.RemoveUnitFromList(transform);
+        transform.DOKill();
         Destroy(gameObject, .1f);
     }
     public int GetUnitLevel()
