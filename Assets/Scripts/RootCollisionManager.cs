@@ -7,12 +7,20 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
     public event UnitCollectedEventDelegate UnitCollectedEvent;
 
     public event System.Action CollidedWithFinishLineEvent;
-    public event System.Action CollidedWithAnyTypeOfEnemyEvent;
+    public event System.Action GameIsFailedSomehowEvent;
 
 
     [Header("References")]
     public Transform stackRoot;
 
+    [Header("Debug")]
+    Collider _collider;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _collider = GetComponent<Collider>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
@@ -28,14 +36,27 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
         }
         if (other.transform.TryGetComponent(out EnemyController enemy))
         {
-            CollidedWithAnyTypeOfEnemyEvent?.Invoke();
+            Failed();
+        }    
+        if (other.transform.TryGetComponent(out SpikeController spike))
+        {
+            Failed();
         }
     }
 
+    void Failed()
+    {
+        _collider.enabled = false;
+
+        GameIsFailedSomehowEvent?.Invoke();
+
+        GameManager.instance.EndGame(false);
+    }
 
     public void TriggerUnitCollectedEvent(CollectibleUnit collectibleUnit)
     {
         UnitCollectedEvent?.Invoke(collectibleUnit);
     }
+
 
 }

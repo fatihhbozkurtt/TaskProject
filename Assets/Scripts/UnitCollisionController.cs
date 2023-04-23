@@ -6,6 +6,7 @@ public class UnitCollisionController : MonoBehaviour
 {
     public event System.Action CollidedWithGateEvent;
     public event System.Action CollidedWithSpikeEvent;
+    public event System.Action<BossController, int> CollidedWithBossEvent;
     public event System.Action<EnemyController, int> CollidedWithEnemyEvent;
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +21,7 @@ public class UnitCollisionController : MonoBehaviour
         }
 
 
-        ///////////------- Collisions effect on itself --------//////////
+        ///////////------- Collisions effect on itself (CollectibleUnit)--------//////////
         if (other.TryGetComponent(out GateController gate))
         {
             CollidedWithGateEvent?.Invoke();
@@ -35,6 +36,11 @@ public class UnitCollisionController : MonoBehaviour
         if (other.TryGetComponent(out SpikeController spike))
         {
             CollidedWithSpikeEvent?.Invoke();
+        }
+
+        if (other.TryGetComponent(out BossController bossController))
+        {
+            CollidedWithBossEvent?.Invoke(bossController,bossController.GetBossLevel());
         }
     }
 

@@ -9,7 +9,7 @@ public class CollectibleUnit : MonoBehaviour
     [SerializeField] int unitLevel;
 
     //[Header("References")]
-
+    Collider _collider;
 
     [Header("Debug")]
     [SerializeField] bool isCollected;
@@ -21,17 +21,18 @@ public class CollectibleUnit : MonoBehaviour
     {
         collectibleScale = transform.localScale;
         collisionController = GetComponent<UnitCollisionController>();
-
+        _collider = GetComponent<Collider>();
     }
     private void Start()
     {
         collisionController.CollidedWithGateEvent += OnCollidedWithGate;
         collisionController.CollidedWithEnemyEvent += OnCollidedWithEnemy;
         collisionController.CollidedWithSpikeEvent += OnCollidedSpike;
+        collisionController.CollidedWithBossEvent += OnCollidedBoss;
     }
 
 
-    #region Collision Event Subscribers
+    #region Collision Event Listeners
 
     private void OnCollidedWithGate()
     {
@@ -44,6 +45,30 @@ public class CollectibleUnit : MonoBehaviour
         UnitLevelChangedEvent?.Invoke(unitLevel);
 
     }
+    private void OnCollidedBoss(BossController bossController, int bossLevel)
+    {
+        if (unitLevel > bossLevel)
+        {
+            unitLevel -= bossLevel;
+            UnitLevelChangedEvent?.Invoke(unitLevel);
+        }
+        else if (unitLevel < bossLevel)
+        {
+            _collider.enabled = false;
+            DestroySelf();
+
+   
+        }
+        else if (unitLevel == bossLevel)
+        {
+            _collider.enabled = false;
+            DestroySelf();
+      
+        }
+
+        bossController.CollidedWithUnit(unitLevel); // In any case boss should be informed about collision for  private implementation(scale down, level text updating)
+    }
+
     private void OnCollidedWithEnemy(EnemyController enemy, int enemyLevel)
     {
         if (unitLevel > enemyLevel)

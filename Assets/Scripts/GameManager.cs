@@ -17,7 +17,6 @@ public class GameManager : SingletonBehavior<GameManager>
     public event System.Action LevelEndedEvent; // fired regardless of fail or success
     public event System.Action LevelSuccessEvent; // fired only on success
     public event System.Action LevelFailedEvent; // fired only on fail
-    public event System.Action LevelAboutToChangeEvent; // fired just before next level load
 
     protected override void Awake()
     {
@@ -55,7 +54,6 @@ public class GameManager : SingletonBehavior<GameManager>
 
     private void LoadScene(int targetScene)
     {
-        LevelAboutToChangeEvent?.Invoke();
         SceneManager.LoadScene(targetScene);
     }
 

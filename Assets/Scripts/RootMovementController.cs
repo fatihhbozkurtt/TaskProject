@@ -18,7 +18,7 @@ public class RootMovementController : MonoBehaviour
         canPerformMovement = true;
 
         RootCollisionManager.instance.CollidedWithFinishLineEvent += OnCollidedFinishLine;
-        RootCollisionManager.instance.CollidedWithAnyTypeOfEnemyEvent += OnCollidedAnyEnemy; ;
+        RootCollisionManager.instance.GameIsFailedSomehowEvent += OnCollidedAnyEnemy; ;
 
     }
 
@@ -26,6 +26,8 @@ public class RootMovementController : MonoBehaviour
     {
         StopHorizontalMovement();
         StopVerticalMovement();
+
+
     }
     private void OnCollidedFinishLine()
     {
@@ -34,6 +36,8 @@ public class RootMovementController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.isLevelActive) return; // Game does not start before tapping the screen
+
 
         if (!canPerformMovement) return;
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
@@ -65,7 +69,7 @@ public class RootMovementController : MonoBehaviour
         {
             lastMousePos = Vector3.zero;
             firstMousePos = Vector3.zero;
-            swerveDelta = Vector3.zero;
+           // swerveDelta = Vector3.zero;
             swerveDelta = lastMousePos - firstMousePos;
         }
 
@@ -95,4 +99,6 @@ public class RootMovementController : MonoBehaviour
     {
         stopHorizontalMovement = true;
     }
+
+    
 }
