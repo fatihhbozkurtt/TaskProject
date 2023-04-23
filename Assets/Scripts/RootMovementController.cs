@@ -34,7 +34,7 @@ public class RootMovementController : MonoBehaviour
         StopHorizontalMovement();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!GameManager.instance.isLevelActive) return; // Game does not start before tapping the screen
 
