@@ -68,7 +68,7 @@ public class StackManager : SingletonBehavior<StackManager>
             displacement.y = 0; // Salýným olayýnda y ekseni sabit kalýr
             displacement.z = 0; // Salýným olayýnda z ekseni sabit kalýr
 
-            Vector3 pos = collectibleUnit.position + displacement; // Unitlerin positionlarýný yer deðiþtirmeye eþitlemek
+            Vector3 pos = collectibleUnit.position + displacement; // Unitlerin positionlarýný yer deðiþtirmeye eþitleme
             pos.z = targetPos.z;
 
             collectibleUnit.position = pos;

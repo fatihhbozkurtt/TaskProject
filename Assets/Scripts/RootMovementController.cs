@@ -10,21 +10,36 @@ public class RootMovementController : MonoBehaviour
     [Header("Debug")]    // Fields that need to be seen on editor go here
     [SerializeField] Vector3 firstMousePos;
     [SerializeField] Vector3 lastMousePos;
-    [SerializeField] Vector3 swerveDelta;
+
     [SerializeField] bool canPerformMovement;
+    [SerializeField] bool stopHorizontalMovement;
     private void Awake()
     {
         canPerformMovement = true;
+
+        RootCollisionManager.instance.CollidedWithFinishLineEvent += OnCollidedFinishLine;
+        RootCollisionManager.instance.CollidedWithAnyTypeOfEnemyEvent += OnCollidedAnyEnemy; ;
+
     }
+
+    private void OnCollidedAnyEnemy()
+    {
+        StopHorizontalMovement();
+        StopVerticalMovement();
+    }
+    private void OnCollidedFinishLine()
+    {
+        StopHorizontalMovement();
+    }
+
     private void Update()
     {
 
-
         if (!canPerformMovement) return;
-
-        CalculateHorizontalDelta();
-
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+
+        if (stopHorizontalMovement) return;
+        Vector3 swerveDelta = CalculateHorizontalDelta();
         transform.Translate(swerveDelta.x * horizontalSpeed * Time.deltaTime, 0, 0);
 
 
@@ -32,8 +47,10 @@ public class RootMovementController : MonoBehaviour
     }
 
 
-    void CalculateHorizontalDelta()
+    Vector3 CalculateHorizontalDelta()
     {
+
+        Vector3 swerveDelta = Vector3.zero;
         if (Input.GetMouseButtonDown(0))
         {
             firstMousePos.x = Input.mousePosition.x / Screen.width;
@@ -51,6 +68,8 @@ public class RootMovementController : MonoBehaviour
             swerveDelta = Vector3.zero;
             swerveDelta = lastMousePos - firstMousePos;
         }
+
+        return swerveDelta;
     }
 
 
@@ -67,10 +86,13 @@ public class RootMovementController : MonoBehaviour
     }
 
 
-    public void StopMovement()
+    public void StopVerticalMovement()
     {
         canPerformMovement = false;
     }
 
-
+    public void StopHorizontalMovement()
+    {
+        stopHorizontalMovement = true;
+    }
 }

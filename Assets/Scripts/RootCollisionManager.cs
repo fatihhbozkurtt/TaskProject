@@ -7,6 +7,7 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
     public event UnitCollectedEventDelegate UnitCollectedEvent;
 
     public event System.Action CollidedWithFinishLineEvent;
+    public event System.Action CollidedWithAnyTypeOfEnemyEvent;
 
 
     [Header("References")]
@@ -20,10 +21,14 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
 
             collectibleUnit.GetCollected();
             TriggerUnitCollectedEvent(collectibleUnit);
-        }    
+        }
         if (other.transform.TryGetComponent(out FinishLineController finishLine))
         {
             CollidedWithFinishLineEvent?.Invoke();
+        }
+        if (other.transform.TryGetComponent(out EnemyController enemy))
+        {
+            CollidedWithAnyTypeOfEnemyEvent?.Invoke();
         }
     }
 
