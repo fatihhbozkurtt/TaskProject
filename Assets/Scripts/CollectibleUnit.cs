@@ -79,7 +79,7 @@ public class CollectibleUnit : MonoBehaviour
         //{
         //    if (collectibleUnit.IsAlreadyCollected()) return;
 
-        //    UnitCollector.instance.TriggerUnitCollectedEvent(collectibleUnit);
+        //    RootCollisionManager.instance.TriggerUnitCollectedEvent(collectibleUnit);
         //    collectibleUnit.GetCollected();
         //}
     }

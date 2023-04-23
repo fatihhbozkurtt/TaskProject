@@ -20,8 +20,8 @@ public class StackManager : SingletonBehavior<StackManager>
 
     private void Start()
     {
-        stackRoot = UnitCollector.instance.stackRoot;
-        UnitCollector.instance.UnitCollectedEvent += OnUnitCollected;
+        stackRoot = RootCollisionManager.instance.stackRoot;
+        RootCollisionManager.instance.UnitCollectedEvent += OnUnitCollected;
         displacements = new List<Vector3>();
     }
 

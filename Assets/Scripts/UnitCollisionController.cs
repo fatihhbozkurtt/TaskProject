@@ -10,12 +10,12 @@ public class UnitCollisionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /////////////--------- Collisions effect on root object (UnitCollector)---------------////////////
+        /////////////--------- Collisions effect on root object (RootCollisionManager)---------------////////////
         if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
         {
             if (collectibleUnit.IsAlreadyCollected()) return;
 
-            UnitCollector.instance.TriggerUnitCollectedEvent(collectibleUnit);
+            RootCollisionManager.instance.TriggerUnitCollectedEvent(collectibleUnit);
             collectibleUnit.GetCollected();
         }
 

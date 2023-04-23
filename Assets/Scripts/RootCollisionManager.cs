@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class UnitCollector : SingletonBehavior<UnitCollector>
+public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
 {
 
     public delegate void UnitCollectedEventDelegate(CollectibleUnit unit);
     public event UnitCollectedEventDelegate UnitCollectedEvent;
+
+    public event System.Action CollidedWithFinishLineEvent;
+
 
     [Header("References")]
     public Transform stackRoot;
@@ -17,6 +20,10 @@ public class UnitCollector : SingletonBehavior<UnitCollector>
 
             collectibleUnit.GetCollected();
             TriggerUnitCollectedEvent(collectibleUnit);
+        }    
+        if (other.transform.TryGetComponent(out FinishLineController finishLine))
+        {
+            CollidedWithFinishLineEvent?.Invoke();
         }
     }
 
