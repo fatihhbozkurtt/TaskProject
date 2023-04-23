@@ -41,7 +41,7 @@ public class GameManager : SingletonBehavior<GameManager>
 
     public void NextStage()
     {
-
+        LoadScene(SceneManager.GetActiveScene().buildIndex); // for this task there is no next level, that is why I activate the same level
     }
 
     public void RestartStage()

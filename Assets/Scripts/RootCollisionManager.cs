@@ -37,7 +37,11 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
         if (other.transform.TryGetComponent(out EnemyController enemy))
         {
             Failed();
-        }    
+        }
+        if (other.transform.TryGetComponent(out BossController boss))
+        {
+            Failed();
+        }
         if (other.transform.TryGetComponent(out SpikeController spike))
         {
             Failed();
