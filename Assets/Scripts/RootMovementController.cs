@@ -13,13 +13,19 @@ public class RootMovementController : MonoBehaviour
 
     [SerializeField] bool canPerformMovement;
     [SerializeField] bool stopHorizontalMovement;
+
     private void Awake()
     {
         canPerformMovement = true;
+    }
+
+    private void Start()
+    {
 
         RootCollisionManager.instance.CollidedWithFinishLineEvent += OnCollidedFinishLine;
         RootCollisionManager.instance.GameIsFailedSomehowEvent += OnCollidedAnyEnemy; ;
 
+        
     }
 
     private void OnCollidedAnyEnemy()
