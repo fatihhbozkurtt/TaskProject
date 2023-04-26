@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : SingletonBehavior<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [Header("Debug")]
     public bool isLevelActive = false;
 
@@ -10,11 +12,17 @@ public class GameManager : SingletonBehavior<GameManager>
     public event System.Action LevelSuccessEvent; // fired only on success
     public event System.Action LevelFailedEvent; // fired only on fail
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
 
-
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void StartGame() // LevelStarted

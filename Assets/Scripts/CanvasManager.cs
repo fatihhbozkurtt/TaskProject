@@ -1,11 +1,10 @@
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasManager : SingletonBehavior<CanvasManager>
+public class CanvasManager : MonoBehaviour
 {
-
+    public static CanvasManager instance;
     public enum PanelType
     {
         MainMenu, Game, Success, Fail
@@ -24,9 +23,17 @@ public class CanvasManager : SingletonBehavior<CanvasManager>
 
     CanvasGroup[] canvasArray;
 
-    protected override void Awake()
+ 
+     void Awake()
     {
-        base.Awake();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         canvasArray = new CanvasGroup[System.Enum.GetNames(typeof(PanelType)).Length];
 

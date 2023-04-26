@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class StackManager : SingletonBehavior<StackManager>
+public class StackManager : MonoBehaviour
 {
+    public static StackManager instance;
+
     [Header("Configuration")]
     public float offsetBetweenUnits;
     [Tooltip("Offset between root and first collected collectibleUnit")]
@@ -17,6 +19,19 @@ public class StackManager : SingletonBehavior<StackManager>
     [SerializeField] Transform stackRoot;
     [SerializeField] Transform lastCollectedUnit;
     List<Vector3> displacements;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

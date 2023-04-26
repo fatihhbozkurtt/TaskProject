@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
+public class RootCollisionManager : MonoBehaviour
 {
+    public static RootCollisionManager instance;
 
     public delegate void UnitCollectedEventDelegate(CollectibleUnit unit);
     public event UnitCollectedEventDelegate UnitCollectedEvent;
@@ -16,11 +17,19 @@ public class RootCollisionManager : SingletonBehavior<RootCollisionManager>
     [Header("Debug")]
     Collider _collider;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         _collider = GetComponent<Collider>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
