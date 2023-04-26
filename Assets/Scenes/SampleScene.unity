@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetBetweenUnits: 0.8
   initialOffset: 1
-  swingRatio: 6
+  swingRatio: 15
   StackList: []
   stackRoot: {fileID: 0}
   lastCollectedUnit: {fileID: 0}
