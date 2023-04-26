@@ -33,7 +33,7 @@ public class StackManager : SingletonBehavior<StackManager>
 
     private void OnUnitCollected(CollectibleUnit unit)
     {
-        AddUnitToList(unit.transform);
+        StackList.Add(unit.transform);
         displacements.Add(Vector3.zero);
         lastCollectedUnit = unit.transform;
 
@@ -95,10 +95,6 @@ public class StackManager : SingletonBehavior<StackManager>
     public int GetStackCount()
     {
         return StackList.Count;
-    }
-    public void AddUnitToList(Transform unit)
-    {
-        StackList.Add(unit);
     }
 
     public void RemoveUnitFromList(Transform unit)

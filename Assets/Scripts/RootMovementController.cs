@@ -21,11 +21,8 @@ public class RootMovementController : MonoBehaviour
 
     private void Start()
     {
-
         RootCollisionManager.instance.CollidedWithFinishLineEvent += OnCollidedFinishLine;
         RootCollisionManager.instance.GameIsFailedSomehowEvent += OnCollidedAnyEnemy; ;
-
-        
     }
 
     private void OnCollidedAnyEnemy()
@@ -59,7 +56,6 @@ public class RootMovementController : MonoBehaviour
 
     Vector3 CalculateHorizontalDelta()
     {
-
         Vector3 swerveDelta = Vector3.zero;
         if (Input.GetMouseButtonDown(0))
         {

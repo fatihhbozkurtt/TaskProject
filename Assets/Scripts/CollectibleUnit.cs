@@ -98,17 +98,6 @@ public class CollectibleUnit : MonoBehaviour
     }
     #endregion
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.transform.TryGetComponent(out CollectibleUnit collectibleUnit))
-        //{
-        //    if (collectibleUnit.IsAlreadyCollected()) return;
-
-        //    RootCollisionManager.instance.TriggerUnitCollectedEvent(collectibleUnit);
-        //    collectibleUnit.GetCollected();
-        //}
-    }
-
     void DestroySelf()
     {
         StackManager.instance.RemoveUnitFromList(transform);
