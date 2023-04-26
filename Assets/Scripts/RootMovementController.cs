@@ -46,6 +46,7 @@ public class RootMovementController : MonoBehaviour
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
         if (stopHorizontalMovement) return;
+
         Vector3 swerveDelta = CalculateHorizontalDelta();
         transform.Translate(swerveDelta.x * horizontalSpeed * Time.deltaTime, 0, 0);
 
@@ -71,7 +72,7 @@ public class RootMovementController : MonoBehaviour
         {
             lastMousePos = Vector3.zero;
             firstMousePos = Vector3.zero;
-           // swerveDelta = Vector3.zero;
+            // swerveDelta = Vector3.zero;
             swerveDelta = lastMousePos - firstMousePos;
         }
 
@@ -102,5 +103,5 @@ public class RootMovementController : MonoBehaviour
         stopHorizontalMovement = true;
     }
 
-    
+
 }
