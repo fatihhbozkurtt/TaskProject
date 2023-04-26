@@ -48,13 +48,9 @@ public class CanvasManager : SingletonBehavior<CanvasManager>
 
     void Start()
     {
-
         GameManager.instance.LevelStartedEvent += (() => ShowPanel(PanelType.Game));
         GameManager.instance.LevelSuccessEvent += (() => ShowPanel(PanelType.Success));
         GameManager.instance.LevelFailedEvent += (() => ShowPanel(PanelType.Fail));
-
-
-
     }
 
 
