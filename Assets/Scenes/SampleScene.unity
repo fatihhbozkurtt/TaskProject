@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetBetweenUnits: 0.8
   initialOffset: 1
-  swingRatio: 6
+  swingRatio: 15
   StackList: []
   stackRoot: {fileID: 0}
   lastCollectedUnit: {fileID: 0}
@@ -3692,22 +3692,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 573459134}
     m_Modifications:
-    - target: {fileID: 303021911339683658, guid: 9286e26c58cfb7641828a19f7ed2c1bb, type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 303021911339683658, guid: 9286e26c58cfb7641828a19f7ed2c1bb, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.8962264
-      objectReference: {fileID: 0}
-    - target: {fileID: 303021911339683658, guid: 9286e26c58cfb7641828a19f7ed2c1bb, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.5732233
-      objectReference: {fileID: 0}
-    - target: {fileID: 303021911339683658, guid: 9286e26c58cfb7641828a19f7ed2c1bb, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.15641688
-      objectReference: {fileID: 0}
     - target: {fileID: 303021911691395130, guid: 9286e26c58cfb7641828a19f7ed2c1bb, type: 3}
       propertyPath: m_Name
       value: CameraManager
